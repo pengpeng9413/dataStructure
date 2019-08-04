@@ -1,5 +1,5 @@
 /**
- * @global 这篇主要讲一下尾调用的优化
+ * @global 尾调用的优化
  * @param  以斐波那契数列为例
  * @readonly 我们首先要了解什么是斐波那契数列；斐波那契数列（Fibonacci sequence），又称黄金分割数列
  *           因数学家列昂纳多·斐波那契（Leonardoda Fibonacci）以兔子繁殖为例子而引入
