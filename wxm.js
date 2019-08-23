@@ -79,13 +79,35 @@ console.info(amoutOfUmbrellas(['下雨','晴天','下雨','晴天','下雨','晴
     字符串C为’ABAB’，字符串D为’CD’，因为字符串C的第三和第四字符在字符串D中没有字符可映像，所以字符串C和D非同构。
 
  */
+
+// 1.常规解法，hash 映射
 function isomorphValidator (a,b) {
     // 首先如果两个字符的长度不一致的话，肯定非同构
     if(a.length!==b.length){
         return false
     }else{
-        
+        let hash1=new Map()
+        let hash2=new Map()
+        for(let i=0;i<a.length;i++){
+            let S=a[i];
+            let T=b[i];
+            if(hash1.has(S)){
+                if(hash1.get(S) !== T) return false
+            }else if(hash2.has(T)){
+                if(hash2.get(T) !== S) return false
+            }else{
+                hash1.set(S, T)
+                hash2.set(T, S)
+            }
+        }
+        return true
     }
 }
-   
+// 2. 用js中的 indexOf ，返回首次出现字符串的位置索引
+function isomorphValidator(a,b){
+    for(let i = 0; i < a.length; i++) {
+        if(a.indexOf(a[i]) != b.indexOf(b[i])) return false
+    }
+    return true
+}
 
