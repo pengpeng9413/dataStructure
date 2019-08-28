@@ -32,7 +32,7 @@ console.log(max)
  * 数据去重的常用的几种方法参考：https://juejin.im/post/5aed6110518825671b026bed
  * 
  */
-// 利用 set 进行去重，最简便的方法
+// 方法1：利用 set 进行去重，最简便的方法
 var arr3=[1,1,1,5,78,25,56,56]
 function unique (arr) {
     // Array.from 方法可以将 Set 结构转为数组。
@@ -41,7 +41,7 @@ function unique (arr) {
 var newArry3=unique(arr3)
 console.info(unique(newArry3))
 
-// 我们接着用reduce来做数组的去重
+// 方法2：我们接着用reduce来做数组的去重
 const uniqueArrry = (array) => {
     return array.reduce((preResult, current) => {
         if (!preResult.includes(current)) {
@@ -52,6 +52,38 @@ const uniqueArrry = (array) => {
 }
 
 console.log(uniqueArrry(arr3))
+
+// 方法3：上面呢，是比较简单的单维数组去重，下面我们看一下对象数组如何去重
+var arr = [{
+            key: '01',
+            value: '乐乐'
+        }, {
+            key: '02',
+            value: '博博'
+        }, {
+            key: '03',
+            value: '淘淘'
+        },{
+            key: '04',
+            value: '哈哈'
+        },{
+            key: '01',
+            value: '乐乐'
+        }];
+ // 上面是一个对象数组，我们如何对这个数组进行去重呢 ？
+
+  //  方法1：利用对象访问属性的方法，判断对象中是否存在key，巧用对象key值唯一来实现对象数组的去重
+   var result = [];
+   var obj = {};
+   for(var i =0; i<arr.length; i++){
+      if(!obj[arr[i].key]){ // obj["01"] 给这个对象一个'01'的key值，没有这个key就往下走
+         result.push(arr[i]);
+         obj[arr[i].key] = true; // 赋值key的键值为true
+      }
+   } 
+
+   console.log(result)
+   console.log(obj)
 
 /** 
  * 数组扁平化
