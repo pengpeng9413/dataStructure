@@ -77,3 +77,21 @@ console.info(arry1.sort(compare2)) // 很神奇，这会从大到小了
 // 升序和降序为啥是这个逻辑呢？请往下看
 // compareFunction(a, b) 大于 0 ， b 会被排列到 a 之前；反之同理
 // compareFunction(a, b) 必须总是对相同的输入返回相同的比较结果，否则排序的结果将是不确定的
+
+/**
+ * @alias 接下来我们讲一下数组的迭代器方法
+ * @example 迭代器方法对数组中的每一个元素应用一个函数，使之返回一个值，一组值，或者一个新的数组
+ * @example 这里先介绍不产生新数组的迭代器方法
+ * @example forEach(),every(),some(),reduce()
+ * @example 这里其实我们很熟悉forEach() 方法，但是对every(),some()应该用的比较少么，至少我是这两个用的比较少，所以这里重点梳理一下
+ */
+every() 方法, 该方法接收一个返回值为布尔类型的函数，如果对于所有的元素，该函数均返回true，则该方法返回true
+
+// eg:
+function isEVEN(){
+
+}
+
+some() 方法，该方法接收一个返回值为布尔类型的函数，只要有一个元素返回true，则该方法返回true
+
+// eg:
