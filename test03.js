@@ -162,3 +162,54 @@ function inIterate2(node) {
     }
   }
 }
+
+//
+function Node(val) {
+  this.left = null
+  this.right = null
+  this.val = val
+}
+
+var node4 = { left: null, right: null, val: 4 }
+var node5 = { left: null, right: null, val: 5 }
+var node6 = { left: null, right: null, val: 6 }
+var node7 = { left: null, right: null, val: 7 }
+var node3 = { left: node6, right: node7, val: 3 }
+var node2 = { left: node4, right: node5, val: 2 }
+var node1 = { left: node2, right: node3, val: 1 }
+// 没错，上面的是我的第一版的代码，当然是错误的，看来对栈和递归迭代还理解的不深啊，
+// 好，我们接着继续菜，沿着数据结构课程的思路，我接着又实现了一般，抽象能力还有得提高啊
+function inIterate3(node) {
+  if (!node) return
+  let stack = [node]
+
+  // 沿着左侧链从顶向下入栈，只要有左侧子孩子就推入栈中
+  function leftLongPush(item) {
+    if (item.left) {
+      stack.unshift(item.left)
+      leftLongPush(item.left)
+    }
+  }
+
+  // 左侧链访问，从末端访问
+  while (stack.length > 0) {
+    leftLongPush(stack[0])
+    // 上面我们把左侧链全部入栈了，然后访问栈顶元素的值
+    console.info(stack[0].val)
+    let temp = stack[0].right
+    stack.shift(stack[0])
+
+    if (temp) {
+      leftLongPush(temp)
+    }
+    // 将访问完的节点从栈顶弹出
+  }
+}
+inIterate3(node1)
+//  以上我们手动维护一个栈就实现了，可能有问题，我们自己靠着自己的思路实现一遍再看看正确答案，看看差距在哪里，理解的偏差在哪里
+
+// 我靠，打印出来的居然都是4 ，fuck, 清华大学 C++ 的演练思路到js 这就不行啦，
+// 先黏贴个地址：
+// 清华大学c++课程 ：https://next.xuetangx.com/learn/THU08091000384/THU08091000384/1516243/video/1387321
+// 中序非迭代：http://www.conardli.top/docs/dataStructure/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86.html#%E4%BB%A3%E7%A0%81
+// https://zhuanlan.zhihu.com/p/27307626  知乎
