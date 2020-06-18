@@ -321,3 +321,77 @@ function endOrder1() {
   }
   return res
 }
+
+// 好了，上节我们重点讲了一下树，尤其对二叉树着重的讲了，现在我们来梳理一下链表这个比较关键的数据结构
+// 概念：用一组任意存储的单元来存储线性表的数据元素。一个对象存储着本身的值和下一个元素的地址
+// 特性：需要遍历才能查询到元素，查询慢
+// 插入元素只需断开连接重新赋值，插入快
+
+// 可以参考以下连接：https://juejin.im/entry/59cb70995188256aa423b680
+// http://www.conardli.top/docs/dataStructure/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8.html
+
+/**
+ * @name 用js实现一个链表结构
+ * @description 我们设计链表包含两个类：一个NODE类用来表示节点，另一个LinkedList类提供插入节点、删除节点等的一些操作
+ */
+
+// 节点
+function Node(element) {
+  this.element = element
+  this.next = null
+}
+
+// LinkedList类，LinkedList提供了对链表进行操作的方法，包括插入删除节点，查找给定的值等。
+// 值得注意的是，它只有一个属性，那就是使用一个NODE对象来保存该链表的
+// 链表类
+function linkList() {
+  this.head = new Node('head') // 头节点
+
+  /**
+   * @name 查找给定节点，就是遍历循环
+   * @param {*} item
+   */
+  this.find = (item) => {
+    let currentNode = this.head
+    while (currentNode.element !== item) {
+      currentNode = currentNode.next
+    }
+    return currentNode
+  }
+
+  /**
+   * @name  根据已知节点后，插入新的节点
+   * @param {*} newElement
+   * @param {*} item
+   */
+  this.insert = (newElement, item) => {
+    // 实例化一个节点，赋予节点值和next指向下一节点的属性
+    let newNode = new Node(newElement)
+    // 找到当前的节点
+    let currentNode = this.find(item)
+    // 然后我们需要做两个事
+    // 1. 新节点的next指向当前节点的next，可以简单理解为新节点与它紧随的节点建立联系
+    // 2. 当前节点的next指向新节点
+    newNode.next = currentNode.next
+    currentNode.next = newNode
+  }
+
+  // 从链表中删除一个节点
+  this.remove = (item) => {
+    let currentNode = new head()
+    while (currentNode.element === item.element) {
+      // 如果要删除一个节点，要断开两个next指向，现在只能拿到当前节点的next置于null,w我们还需要断开前一个节点,即 findPre 方法
+      //然后重新连接起来
+    }
+  }
+
+  this.findPrev = findPrev // 查找前一个节点
+
+  // 显示链表
+  this.display = () => {
+    let currentNode = new head()
+    while (currentNode.node !== null) {
+      console.info(currentNode.element)
+    }
+  }
+}
