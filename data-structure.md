@@ -255,3 +255,97 @@ function endOrder1() {
   return res
 }
 ```
+
+### 链表
+
+好了，上节我们重点讲了一下树，尤其对二叉树着重的讲了，现在我们来梳理一下链表这个比较关键的数据结构
+概念：用一组任意存储的单元来存储线性表的数据元素。一个对象存储着本身的值和下一个元素的地址
+特性：需要遍历才能查询到元素，查询慢
+插入元素只需断开连接重新赋值，插入快
+
+参考连接:
+
+> https://juejin.im/entry/59cb70995188256aa423b680
+
+> http://www.conardli.top/docs/dataStructure/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8.html
+
+#### js 实现一个链表结构
+
+```js
+**
+* @name 用js实现一个链表结构
+* @description 我们设计链表包含两个类：一个NODE类用来表示节点，另一个LinkedList类提供插入节点、删除节点等的一些操作
+*/
+
+// 节点
+function Node(element) {
+this.element = element
+this.next = null
+}
+
+// LinkedList类，LinkedList提供了对链表进行操作的方法，包括插入删除节点，查找给定的值等。
+// 值得注意的是，它只有一个属性，那就是使用一个NODE对象来保存该链表的
+// 链表类
+function linkList() {
+this.head = new Node('head') // 头节点
+
+/**
+ * @name 查找给定节点，就是遍历循环
+ * @param {*} item
+ */
+this.find = (item) => {
+  let currentNode = this.head
+  while (currentNode.element !== item) {
+    currentNode = currentNode.next
+  }
+  return currentNode
+}
+
+/**
+ * @name  根据已知节点后，插入新的节点
+ * @param {*} newElement
+ * @param {*} item
+ */
+this.insert = (newElement, item) => {
+  // 实例化一个节点，赋予节点值和next指向下一节点的属性
+  let newNode = new Node(newElement)
+  // 找到当前的节点
+  let currentNode = this.find(item)
+  // 然后我们需要做两个事
+  // 1. 新节点的next指向当前节点的next，可以简单理解为新节点与它紧随的节点建立联系
+  // 2. 当前节点的next指向新节点
+  newNode.next = currentNode.next
+  currentNode.next = newNode
+}
+
+// 从链表中删除一个节点
+this.remove = (item) => {
+  // 找到上一个节点
+  var prevNode = this.findPrev(item)
+  if (prevNode.next !== null) {
+    // 这个移花接木你细品，真香
+    prevNode.next = prevNode.next.next
+  }
+}
+
+// 查找待删除节点的前一个节点,并返回
+this.findPrev = (item) => {
+  let currentNode = new head()
+  // 一开始看的时候还是比较蒙蔽哈，这段代码很精简，逻辑是这样的
+  // 当访问节点的next 不为null 且 当前节点next 不等于 需要删除的节点时，继续遍历，直到等于的时候，上一轮currentNode就是被删除节点的前一个节点，返回，完成
+  while (currentNode.next !== null && currentNode.next.element !== item) {
+    currentNode = currentNode.next
+  }
+  return currentNode
+}
+
+// 显示链表
+this.display = () => {
+  let currentNode = new head()
+  while (currentNode.node !== null) {
+    console.info(currentNode.element)
+  }
+}
+}
+
+```

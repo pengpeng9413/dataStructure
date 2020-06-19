@@ -378,14 +378,24 @@ function linkList() {
 
   // 从链表中删除一个节点
   this.remove = (item) => {
-    let currentNode = new head()
-    while (currentNode.element === item.element) {
-      // 如果要删除一个节点，要断开两个next指向，现在只能拿到当前节点的next置于null,w我们还需要断开前一个节点,即 findPre 方法
-      //然后重新连接起来
+    // 找到上一个节点
+    var prevNode = this.findPrev(item)
+    if (prevNode.next !== null) {
+      // 这个移花接木你细品，真香
+      prevNode.next = prevNode.next.next
     }
   }
 
-  this.findPrev = findPrev // 查找前一个节点
+  // 查找待删除节点的前一个节点,并返回
+  this.findPrev = (item) => {
+    let currentNode = new head()
+    // 一开始看的时候还是比较蒙蔽哈，这段代码很精简，逻辑是这样的
+    // 当访问节点的next 不为null 且 当前节点next 不等于 需要删除的节点时，继续遍历，直到等于的时候，上一轮currentNode就是被删除节点的前一个节点，返回，完成
+    while (currentNode.next !== null && currentNode.next.element !== item) {
+      currentNode = currentNode.next
+    }
+    return currentNode
+  }
 
   // 显示链表
   this.display = () => {
